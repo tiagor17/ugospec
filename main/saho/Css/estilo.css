@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="text"], textarea { /*selector de atributos y combinacion de con comas Al utilizar la combinación con comas, 
+                             las propiedades y los valores dentro de las llaves {} se aplicarán a todos los elementos que cumplan con cualquiera de los selectores mencionados.*/
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 3px;  /*se utiliza para establecer el radio de las esquinas de un elemento con bordes. En otras palabras, controla la curvatura de las esquinas de un borde.*/
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}

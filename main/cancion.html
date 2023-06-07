@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barra de búsqueda</title>
+  <link rel="stylesheet" href="ugo/Busqueda_de_cancion/estilos.css">
+</head>
+<body>
+  <h1>Buscar canciones</h1>
+  <hr>
+  <br>
+  <input type="text" id="searchInput" placeholder="Buscar">
+  <button onclick="search()">Buscar</button>
+  <div class="contenedor">
+    <ul id="searchResults">
+      <li data-image="descarga.jfif" id="nugo"><h2>Broke Boys</h2><p>
+        Álbum: Her Loss
+        Artistas: Drake, 21 Savage
+        Fecha de lanzamiento: 2022
+        Género: Hip-hop/rap</p></li>
+      <li data-image="feit.jfif" id="yugo"><h2>Yandel 150</h2><p>
+        Artistas: Feid, Yandel
+        Álbum: Resistencia
+        Fecha de lanzamiento: 2023
+        Género: Urbano latino
+        </p></li>
+      <li data-image="yo.jfif" id="nope"><h2>Feel good Inc.</h2><p>
+        Álbum: Demon Days
+        Artista: Gorillaz
+        Fecha de lanzamiento: 2005
+        Géneros: Hip hop, Rock alternativo, Alternativa/independiente, Rap rock, Funk rock, Pop, UK R&B, Hip-hop/rap
+        </p></li>
+      <li data-image="ugo.jfif" id="yair"><h2>Enemy</h2><p>
+        Artistas: Imagine Dragons, J.I.D
+        Álbum: Arcane League of Legends (Soundtrack from the Animated Series)
+        Fecha de lanzamiento: 2021
+        Géneros: R&B/Soul, Alternativa/independiente, Música alternativa, Hip-hop/rap</p></li>
+    </ul>
+  </div>
+
+  <script>
+    function search() {
+  // Obtiene el término de búsqueda ingresado por el usuario y lo convierte a minúsculas
+  var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+  // Verifica si el término de búsqueda está vacío y sale de la función si es así
+  if (searchTerm.trim() === '') {
+    return;
+  }
+
+  // Obtiene todos los elementos <li> dentro del elemento con ID "searchResults"
+  var results = document.getElementById('searchResults').getElementsByTagName('li');
+
+  // Recorre todos los resultados obtenidos
+  for (var i = 0; i < results.length; i++) {
+    var result = results[i];
+    var text = result.textContent.toLowerCase(); // Obtiene el texto del resultado en minúsculas
+    var imageSrc = result.getAttribute('data-image'); // Obtiene la URL de la imagen del resultado
+
+    // Excluye las etiquetas <p> del resultado de la búsqueda
+    var paragraphs = result.getElementsByTagName('p');
+    var shouldExclude = false;
+    for (var j = 0; j < paragraphs.length; j++) {
+      // Verifica si el texto de alguna etiqueta <p> coincide con el término de búsqueda
+      if (paragraphs[j].textContent.toLowerCase().includes(searchTerm)) {
+        shouldExclude = true;
+        break;
+      }
+    }
+
+    // Si el resultado no debe ser excluido y el texto coincide con el término de búsqueda
+    if (!shouldExclude && text.includes(searchTerm)) {
+      result.style.display = 'block'; // Muestra el resultado
+      var img = result.querySelector('img');
+      if (!img) {
+        // Si no hay una imagen en el resultado, se crea una nueva imagen y se agrega al resultado
+        img = document.createElement('img');
+        img.src = imageSrc;
+        img.alt = 'descarga.jfif';
+        result.appendChild(img);
+      }
+    } else {
+      // Si el resultado debe ser excluido o el texto no coincide con el término de búsqueda
+      result.style.display = 'none'; // Oculta el resultado
+      var img = result.querySelector('img');
+      if (img) {
+        // Si hay una imagen en el resultado, se elimina del resultado
+        result.removeChild(img);
+      }
+    }
+  }
+  }
+  </script>
+</body>
+</html>
