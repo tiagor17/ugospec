@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barra de búsqueda</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Buscar álbumes</h1>
+  <hr>
+  <br>
+  <input type="text" id="searchInput" placeholder="Buscar">
+  <button onclick="search()">Buscar</button>
+  <div class="contenedor">
+    <ul id="searchResults">
+      <li data-image="descarga.jfif" id="nugo"><h2>Astroworld</h2><p>
+        Artista: Travis Scott
+        Fecha de publicación: 3 de agosto de 2018
+        Géneros: Hip hop, Música psicodélica, Rap alternativo</p></li>
+      <li data-image="feit.jfif" id="yugo"><h2>SIXDO</h2><p>
+        Artista: Feid
+        Fecha de publicación: 2 de diciembre de 2022
+        Géneros: Urbano latino, Pop
+        Discográfica: UMLE - Latino
+        </p></li>
+      <li data-image="yo.jfif" id="nope"><h2>Desde el fin del mundo</h2><p>
+        Artista: Duki
+        Fecha de publicación: 22 de abril de 2021
+        Géneros: Trap, Hip hop, trap latino, Pop rock
+        Discográfica: DALE PLAY Records
+        Productor(es): Yesan, Asan, Marklu, Club Hats, Orodembow, Zecca, Evar, Bizarrap, Hide Miyabi, Rulits, Smash David
+        </p></li>
+      <li data-image="ugo.jfif" id="yair"><h2>RHLM</h2><p>
+        Artista: Anuel AA
+        Fecha de publicación: 17 de julio de 2018
+        Discográfica: Real Hasta La Muerte
+        Nominaciones: Billboard Music Award al Mejor Álbum Latino, MÁS
+        Género(s): Reguetón, trap latino</p></li>
+    </ul>
+  </div>
+
+  <script>
+    function search() {
+  // Obtiene el término de búsqueda ingresado por el usuario y lo convierte a minúsculas
+  var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+  // Verifica si el término de búsqueda está vacío y sale de la función si es así
+  if (searchTerm.trim() === '') {
+    return;
+  }
+
+  // Obtiene todos los elementos <li> dentro del elemento con ID "searchResults"
+  var results = document.getElementById('searchResults').getElementsByTagName('li');
+
+  // Recorre todos los resultados obtenidos
+  for (var i = 0; i < results.length; i++) {
+    var result = results[i];
+    var text = result.textContent.toLowerCase(); // Obtiene el texto del resultado en minúsculas
+    var imageSrc = result.getAttribute('data-image'); // Obtiene la URL de la imagen del resultado
+
+    // Excluye las etiquetas <p> del resultado de la búsqueda
+    var paragraphs = result.getElementsByTagName('p');
+    var shouldExclude = false;
+    for (var j = 0; j < paragraphs.length; j++) {
+      // Verifica si el texto de alguna etiqueta <p> coincide con el término de búsqueda
+      if (paragraphs[j].textContent.toLowerCase().includes(searchTerm)) {
+        shouldExclude = true;
+        break;
+      }
+    }
+
+    // Si el resultado no debe ser excluido y el texto coincide con el término de búsqueda
+    if (!shouldExclude && text.includes(searchTerm)) {
+      result.style.display = 'block'; // Muestra el resultado
+      var img = result.querySelector('img');
+      if (!img) {
+        // Si no hay una imagen en el resultado, se crea una nueva imagen y se agrega al resultado
+        img = document.createElement('img');
+        img.src = imageSrc;
+        img.alt = 'descarga.jfif';
+        result.appendChild(img);
+      }
+    } else {
+      // Si el resultado debe ser excluido o el texto no coincide con el término de búsqueda
+      result.style.display = 'none'; // Oculta el resultado
+      var img = result.querySelector('img');
+      if (img) {
+        // Si hay una imagen en el resultado, se elimina del resultado
+        result.removeChild(img);
+      }
+    }
+  }
+  }
+  </script>
+</body>
+</html>
